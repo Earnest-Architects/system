@@ -2,6 +2,7 @@ const {P,S,URL_}=window.DECK,I=f=>"images/"+f,N=S.length;
 export const count=N;
 export function buildDeck(stage,tk,go){
 const fig=a=>`<figure><img src="${I(a[0])}" alt="${a[0]}" decoding="async">${a[1]===""?"":`<figcaption>${a[0]}</figcaption>`}</figure>`;
+const emb=()=>`<div class="embed" data-poster="${I("top.jpg")}"><iframe src="${URL_}" title="Kajanchi 360° Virtual Tour" allow="fullscreen; xr-spatial-tracking; gyroscope; accelerometer; autoplay" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>`;
 const pad=n=>"A-"+String(n).padStart(2,"0");
 S.forEach((s,i)=>{
  const hd=`<header><span><b>Kajanchi邸</b>　360° Virtual Tour</span><span>${s.date}</span></header>`;
@@ -19,7 +20,7 @@ S.forEach((s,i)=>{
  }
  const el=document.createElement("section");
  el.className="sheet"+(s.cover?" cover":"");el.style.zIndex=N-i;
- el.innerHTML=`<div class="face front"><div class="fr">${hd}<main><div class="txt">${t}</div><div class="imgs ${s.g}">${s.imgs.map(fig).join("")}</div></main>${ft}</div></div>`;
+ el.innerHTML=`<div class="face front"><div class="fr">${hd}<main><div class="txt">${t}</div><div class="imgs ${s.g}">${s.embed?emb():s.imgs.map(fig).join("")}</div></main>${ft}</div></div>`;
  stage.appendChild(el);
  const b=document.createElement("button");b.className="tick";b.setAttribute("aria-label","シート "+pad(i+1));b.onclick=()=>go(i);tk.appendChild(b);
 });

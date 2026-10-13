@@ -14,6 +14,8 @@ export function snap(sheets,k){
     onclone:(d,c)=>{
       for(let n=c;n&&n!==d.body;n=n.parentElement){n.style.transform='none';n.style.visibility='visible';n.style.opacity='1'}
       c.style.boxShadow='none';
+      c.querySelectorAll('.embed').forEach(e=>{const f=e.querySelector('iframe');if(f)f.remove();
+        e.style.background=`url("${new URL(e.dataset.poster,location.href).href}") center/contain no-repeat #f1f3f5`});
       c.querySelectorAll('figure img').forEach(im=>{          // object-fit:contain -> background-size:contain
         if(d.defaultView.getComputedStyle(im).objectFit!=='contain')return;
         const b=d.createElement('div');b.style.cssText=`width:100%;height:100%;background:url("${im.src}") center/contain no-repeat`;im.replaceWith(b)});
